@@ -10,3 +10,4 @@ For more info about solid check : https://solid.inrupt.com/
 - The application does look for the public type index but does not check if the planned location is occupied.
 - No documentation
 - The code is a mess
+- The application can not find the public folder by navigating from the VCARD. it just assumes that the public folder will be at {webidStoragePlace}/public
