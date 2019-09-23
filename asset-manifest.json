@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.a75c58ed.chunk.css",
-    "main.js": "/static/js/main.8966564e.chunk.js",
-    "main.js.map": "/static/js/main.8966564e.chunk.js.map",
-    "runtime~main.js": "/static/js/runtime~main.63ec1e5f.js",
-    "runtime~main.js.map": "/static/js/runtime~main.63ec1e5f.js.map",
-    "static/js/2.1b73c6b5.chunk.js": "/static/js/2.1b73c6b5.chunk.js",
-    "static/js/2.1b73c6b5.chunk.js.map": "/static/js/2.1b73c6b5.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.411fa55dc111f911c5dc3528302b636c.js": "/precache-manifest.411fa55dc111f911c5dc3528302b636c.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/main.a75c58ed.chunk.css.map": "/static/css/main.a75c58ed.chunk.css.map"
+    "main.css": "/solid-beer-app-demo/static/css/main.a75c58ed.chunk.css",
+    "main.js": "/solid-beer-app-demo/static/js/main.b1b960a2.chunk.js",
+    "main.js.map": "/solid-beer-app-demo/static/js/main.b1b960a2.chunk.js.map",
+    "runtime~main.js": "/solid-beer-app-demo/static/js/runtime~main.02583605.js",
+    "runtime~main.js.map": "/solid-beer-app-demo/static/js/runtime~main.02583605.js.map",
+    "static/js/2.7a7bfe7b.chunk.js": "/solid-beer-app-demo/static/js/2.7a7bfe7b.chunk.js",
+    "static/js/2.7a7bfe7b.chunk.js.map": "/solid-beer-app-demo/static/js/2.7a7bfe7b.chunk.js.map",
+    "index.html": "/solid-beer-app-demo/index.html",
+    "precache-manifest.010571ca03abd9eeea21ccd054806d56.js": "/solid-beer-app-demo/precache-manifest.010571ca03abd9eeea21ccd054806d56.js",
+    "service-worker.js": "/solid-beer-app-demo/service-worker.js",
+    "static/css/main.a75c58ed.chunk.css.map": "/solid-beer-app-demo/static/css/main.a75c58ed.chunk.css.map"
   }
 }
