@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/SolidBeerCounter/static/css/main.77d3f2ec.chunk.css",
+    "main.js": "/SolidBeerCounter/static/js/main.e45b033a.chunk.js",
+    "main.js.map": "/SolidBeerCounter/static/js/main.e45b033a.chunk.js.map",
+    "runtime~main.js": "/SolidBeerCounter/static/js/runtime~main.df1e5a72.js",
+    "runtime~main.js.map": "/SolidBeerCounter/static/js/runtime~main.df1e5a72.js.map",
+    "static/js/2.9ea927f2.chunk.js": "/SolidBeerCounter/static/js/2.9ea927f2.chunk.js",
+    "static/js/2.9ea927f2.chunk.js.map": "/SolidBeerCounter/static/js/2.9ea927f2.chunk.js.map",
+    "index.html": "/SolidBeerCounter/index.html",
+    "precache-manifest.eef84e85cbf9638b6924cb6f9cc790e1.js": "/SolidBeerCounter/precache-manifest.eef84e85cbf9638b6924cb6f9cc790e1.js",
+    "service-worker.js": "/SolidBeerCounter/service-worker.js",
+    "static/css/main.77d3f2ec.chunk.css.map": "/SolidBeerCounter/static/css/main.77d3f2ec.chunk.css.map"
+  }
+}
