@@ -8,6 +8,8 @@ class List extends React.Component{
       return (
         <div className = "listContainer">
           {list}
+          <br/>
+          <br/>
         </div>
       );
     }

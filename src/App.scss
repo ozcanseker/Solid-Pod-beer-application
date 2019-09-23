@@ -21,8 +21,8 @@ h1 {
 #authDiv {
     overflow: hidden;
     width: 100;
-    padding: 1%;
-}
+    padding: 0% 1% 0% 1%;
+  }
 
 .authButton {
     float: right;
@@ -78,7 +78,7 @@ h1 {
 
 .listContainer{
   margin: 0% 5% 0% 5%;
-  max-height: 300px;
+  max-height: 250px;
   overflow-y: auto;
 }
 
@@ -103,7 +103,7 @@ h1 {
 
 .record {
   border: 1px black solid;
-  margin-bottom: 3%; 
+  margin-bottom: 2%; 
   text-align: center;
   padding : 0;
 }
