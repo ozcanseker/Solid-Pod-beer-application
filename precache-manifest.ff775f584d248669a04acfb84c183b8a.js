@@ -1,18 +1,18 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "32d2313fe6bc4ebb9a49fea93435e4ba",
+    "revision": "6fbf14222b9c53078bc9dc9b5211a4e3",
     "url": "/Solid-Pod-beer-counter/index.html"
   },
   {
-    "revision": "d735a9144393e1e2b4c9",
-    "url": "/Solid-Pod-beer-counter/static/css/main.a75c58ed.chunk.css"
+    "revision": "0b82ac99b7923650664a",
+    "url": "/Solid-Pod-beer-counter/static/css/main.c966feba.chunk.css"
   },
   {
     "revision": "16d2faa9aea298b9d9d6",
     "url": "/Solid-Pod-beer-counter/static/js/2.3f980fa8.chunk.js"
   },
   {
-    "revision": "d735a9144393e1e2b4c9",
+    "revision": "0b82ac99b7923650664a",
     "url": "/Solid-Pod-beer-counter/static/js/main.ae283ad3.chunk.js"
   },
   {
