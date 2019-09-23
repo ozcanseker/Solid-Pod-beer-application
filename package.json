@@ -2,7 +2,7 @@
   "name": "solid-beer-app-demo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://ozcanseker.github.io/SolidBeerCounter",
+  "homepage": "https://ozcanseker.github.io/Solid-Pod-beer-counter/",
   "dependencies": {
     "node-sass": "^4.12.0",
     "rdflib": "^1.0.4",
