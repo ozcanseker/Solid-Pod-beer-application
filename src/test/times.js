@@ -60,7 +60,7 @@ let store = $rdf.graph();
 addExampleNodes(store, "https://ozcan.seker.com");
 
 let blankNode = store.any(null, null, stringToDate(date));
-let statment = store.any(blankNode, RDF('value'), null);        
+let statment = store.any(blankNode, RDF('value'));  
+store.removeMatches(blankNode, RDF('value'));
 
 store.statements.map(statement => console.log(statement.object.value));
-console.log(statment);
