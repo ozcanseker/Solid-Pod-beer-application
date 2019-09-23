@@ -66,7 +66,7 @@ class App extends React.Component{
   }
 
   handleLogIn = () => {
-    let popupUri = '/popup.html';
+    let popupUri = './popup.html';
     authClient.popupLogin({ popupUri }).then(() => {
       this.checkForLogin();
     })
@@ -90,25 +90,29 @@ class App extends React.Component{
 
     if(this.state.isLoggedIn){
       button = <LogOutButton onClick = {this.handleLogOut}></LogOutButton>
+
+      if(this.state.hasFetched){
+        let list = <List beerCounter = {this.state.beerCounter}></List>
+        let counter = <Counter onClick = {this.increaseBeers}></Counter>
+        let today = <Today date = {this.state.dateToday} beers = {this.state.amountOfBeersToday}></Today>
+      
+        appData = (<section>
+            {today}
+            {counter}
+            {list}
+        </section>)
+      }else{
+        rendering = (<section id = "rendering">
+          <h3>Fetching data</h3>
+          <div id = "fetchinAnimation"></div>
+        </section>)
+      }
     }else{
       button = <LogInButton onClick = {this.handleLogIn}></LogInButton>
-    }
-
-    if(this.state.hasFetched){
-      let list = <List beerCounter = {this.state.beerCounter}></List>
-      let counter = <Counter onClick = {this.increaseBeers}></Counter>
-      let today = <Today date = {this.state.dateToday} beers = {this.state.amountOfBeersToday}></Today>
-    
-      appData = (<section>
-          {today}
-          {counter}
-          {list}
-      </section>)
-    }else{
       rendering = (<section id = "rendering">
-        <h3>Fetching data</h3>
-        <div id = "fetchinAnimation"></div>
-      </section>)
+                      <h3>Please log in</h3>
+                  </section>
+                  )
     }
 
     return (
