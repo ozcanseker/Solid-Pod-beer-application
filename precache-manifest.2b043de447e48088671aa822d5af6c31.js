@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "99fbe749654337056f11fefeefd506ba",
+    "revision": "32d2313fe6bc4ebb9a49fea93435e4ba",
     "url": "/Solid-Pod-beer-counter/index.html"
   },
   {
