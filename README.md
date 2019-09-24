@@ -12,3 +12,4 @@ For more info about solid check : https://solid.inrupt.com/
 - The application can not find the public folder by navigating from the VCARD. it just assumes that the public folder will be at {webidStoragePlace}/public
 - Application does not show the name of the person logged in. 
 - Application does not give an error when someone does not give access to read or write.
+- Add a link to register and explain to people not familiar with solid how pods work.
