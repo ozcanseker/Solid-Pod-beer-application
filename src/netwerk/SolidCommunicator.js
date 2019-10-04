@@ -156,7 +156,7 @@ class SolidCommuncator{
     static async checkIntegrity(applocation, storagePublic){
         let res = await authClient.fetch(applocation);
         if(res.status === 404){
-            postSolidFile(storagePublic, applocation.match("[^\/]+$")[0].replace(".ttl", "") ,"");
+            await postSolidFile(storagePublic, applocation.match("[^\/]+$")[0].replace(".ttl", "") ,"");
             console.log("app not found");
         }
     }
