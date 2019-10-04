@@ -1,13 +1,15 @@
 const fileClient = require('solid-file-client');
-const $rdf = require('rdflib');
+const authClient = require('solid-auth-client');
+const rdfLib = require('rdflib');
 
-const SOLID = $rdf.Namespace( "http://www.w3.org/ns/solid/terms#");
-const TERMS = $rdf.Namespace('http://purl.org/dc/terms/');
-const RDF = $rdf.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
-const BEERCOUNTER = $rdf.Namespace("https://ozcanseker.inrupt.net/vocabulary#");
-const PIM = $rdf.Namespace("http://www.w3.org/ns/pim/space#");
+const SOLID = rdfLib.Namespace( "http://www.w3.org/ns/solid/terms#");
+const TERMS = rdfLib.Namespace('http://purl.org/dc/terms/');
+const RDF = rdfLib.Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+const BEERCOUNTER = rdfLib.Namespace("https://ozcanseker.inrupt.net/vocabulary#");
+const PIM = rdfLib.Namespace("http://www.w3.org/ns/pim/space#");
+const ACL = rdfLib.Namespace("http://www.w3.org/ns/auth/acl#");
 
-let BEERCOUNTERRECORD = $rdf.sym("https://ozcanseker.inrupt.net/vocabulary#BeerCounterRecord");
+let BEERCOUNTERRECORD = rdfLib.sym("https://ozcanseker.inrupt.net/vocabulary#BeerCounterRecord");
 
 class SolidCommuncator{
 
@@ -57,16 +59,16 @@ class SolidCommuncator{
                 let statment = this.appStore.any(blankNode, RDF('value'), null);   
                 statment.value = query.amount + "";     
             }else{ 
-                blankNode = $rdf.blankNode();
+                blankNode = rdfLib.blankNode();
                 this.appStore.add(blankNode, RDF('type'), BEERCOUNTER('BeerCounterRecord'));
                 this.appStore.add(blankNode, TERMS('created'), stringToDate(date));
                 this.appStore.add(blankNode, RDF('value'), query.amount);
             }
         }
 
-        let appStoreTTL = await $rdf.serialize(undefined, this.appStore, 'text/turtle');
+        let appStoreTTL = await rdfLib.serialize(undefined, this.appStore, 'text/turtle');
         console.log(this.applocation);
-        await fileClient.updateFile(this.applocation, appStoreTTL);
+        await putSolidFile(this.applocation, appStoreTTL);
 
         if(this.queryList.length > 0){
             this.startSendingFile();
@@ -79,11 +81,17 @@ class SolidCommuncator{
         //get the session of the user logged in
         const session = await fileClient.checkSession();
         //make a named node of the session webid of the user
-        const profile = $rdf.sym(session.webId);
+        const profile = rdfLib.sym(session.webId);
 
         //get a store of the profile card of the logged in user
         let storeProfileCard = await this.getUserCard(session);
-        
+
+        try{
+            this.checkacess(storeProfileCard);
+        }catch(e){
+            throw e;
+        }
+
         //store for the Public Profile Index
         let ppiObject = await this.getPPILocation(profile, storeProfileCard);
 
@@ -98,55 +106,79 @@ class SolidCommuncator{
         //get the application file in store form
         let appStore = await this.getAppStore(applicationLocation);
 
-        //make a few example nodes to fill up the file
-        //let newAppFile = await this.addExampleNodes(appStore, applicationLocation);
-        //await fileClient.updateFile(applicationLocation.value, newAppFile);
-
-        //update the model BeerCounter with data from the file.
+        // // //update the model BeerCounter with data from the file.
         let map = this.getDatesAndCountsFromStore(appStore);
         beerCounter.setCountsPerDate(map);
 
         return new SolidCommuncator(session.webId, applicationLocation, appStore, beerCounter);
     }  
 
+    static checkacess(storeProfileCard){
+        let blankNode = storeProfileCard.any(undefined, ACL('origin'),rdfLib.sym("https://ozcanseker.github.io"));
+        let readAcess = storeProfileCard.match(blankNode, ACL('mode'), ACL('Read'));
+        let Write = storeProfileCard.match(blankNode, ACL('mode'),ACL('Write'));
+        let Append = storeProfileCard.match(blankNode, ACL('mode'),ACL('Append'));
+        
+        if(!readAcess.length){
+            throw new Error("No Read acess");
+        }
+
+        if(!Write.length){
+            throw new Error("No Write acess");
+        }
+
+        if(!Append.length){
+            throw new Error("No Append acess");
+        }
+    }
+
     static async getAppStore(applicationLocation){
-        let appStore = $rdf.graph();
+        let appStore = rdfLib.graph();
         let appTTL = await fileClient.fetch(applicationLocation);
-        await $rdf.parse(appTTL, appStore, applicationLocation , "text/turtle");
+        await rdfLib.parse(appTTL, appStore, applicationLocation , "text/turtle");
         return appStore;
     }
 
     static async getApplicationLocation(publicProfileIndex, storePublicProfileIndex, storagePublic){
-        let app = $rdf.sym(publicProfileIndex.value + "#BeerCounter");
+        let app = rdfLib.sym(publicProfileIndex.value + "#BeerCounter");
         let appQuery = storePublicProfileIndex.any(app, SOLID("instance"));
 
         if(!appQuery){
             //make a new entery in the ppi and make a file for you application
             return await this.createAppNodeForPublicTypeIndex(storePublicProfileIndex, publicProfileIndex, storagePublic, app);
         }else{
+            await this.checkIntegrity(appQuery.value, storagePublic);
             //get the applocation
             return appQuery.value;
         }
     }
 
+    static async checkIntegrity(applocation, storagePublic){
+        let res = await authClient.fetch(applocation);
+        if(res.status === 404){
+            postSolidFile(storagePublic, applocation.match("[^\/]+$")[0].replace(".ttl", "") ,"");
+            console.log("app not found");
+        }
+    }
+
     static async getUserCard(session){
         const profileCardTTl = await fileClient.fetch(session.webId); 
-        const storeProfileCard = $rdf.graph(); 
-        $rdf.parse(profileCardTTl, storeProfileCard, session.webId, "text/turtle");
+        const storeProfileCard = rdfLib.graph(); 
+        rdfLib.parse(profileCardTTl, storeProfileCard, session.webId, "text/turtle");
         return storeProfileCard;
     }
     
     static async getPPILocation(profile, storeProfileCard){
         const publicProfileIndex = storeProfileCard.any(profile, SOLID("publicTypeIndex"));
-        const storePublicTypeIndex = $rdf.graph();
+        const storePublicTypeIndex = rdfLib.graph();
         const publicTypeIndexTTL = await fileClient.fetch(publicProfileIndex.value);
-        $rdf.parse(publicTypeIndexTTL, storePublicTypeIndex, publicProfileIndex.value, "text/turtle");
+        rdfLib.parse(publicTypeIndexTTL, storePublicTypeIndex, publicProfileIndex.value, "text/turtle");
         return {store : storePublicTypeIndex, ppi : publicProfileIndex};
     }
 
     static getStorePublic(profile, storeProfileCard){
         let locationStorage = storeProfileCard.any(profile, PIM("storage"));
-        return locationStorage.value + "public";
+        return locationStorage.value + "public/";
     }
 
     static getDatesAndCountsFromStore(store){
@@ -165,60 +197,45 @@ class SolidCommuncator{
     }
 
     static async createAppNodeForPublicTypeIndex(store, publicTypeIndex, publicLocation, app){
-        //TODO check if there is a file here otherwise make a new file
+        let appLocation = await findEmptyFile(publicLocation);
+        await postSolidFile(publicLocation, appLocation, "");
 
-        let appLocation = publicLocation + "/beercounter.ttl"
-        await fileClient.updateFile(appLocation, "");
-
-        appLocation = $rdf.sym(appLocation);
+        appLocation = publicLocation + appLocation + '.ttl';
+        appLocation = rdfLib.sym(appLocation);
         
         store.add(publicTypeIndex, TERMS('references'), app);
         store.add(app, RDF('type'), SOLID('TypeRegistration'));
         store.add(app, SOLID('forClass'), BEERCOUNTERRECORD);
         store.add(app, SOLID('instance'), appLocation);
         
-        let newTTLpublicTypeindex = await $rdf.serialize(undefined, store, publicTypeIndex.value, 'text/turtle');
+        let newTTLpublicTypeindex = await rdfLib.serialize(undefined, store, publicTypeIndex.value, 'text/turtle');
 
-        await fileClient.updateFile(publicTypeIndex.value, newTTLpublicTypeindex); 
+        await putSolidFile(publicTypeIndex.value, newTTLpublicTypeindex);
 
         return appLocation.value;
     }
-
-    static async addExampleNodes(appStore, applocation){
-        applocation = $rdf.sym(applocation);
-        let bnode = $rdf.blankNode();
-        let bnode1 = $rdf.blankNode();
-        let bnode2 = $rdf.blankNode();
-        let bnode3 = $rdf.blankNode();
-
-        appStore.add(applocation, TERMS('references'), bnode);
-        appStore.add(applocation, TERMS('references'), bnode1);
-        appStore.add(applocation, TERMS('references'), bnode2);
-        appStore.add(applocation, TERMS('references'), bnode3);
-
-        appStore.add(bnode, RDF('type'), BEERCOUNTER('BeerCounterRecord'));
-        appStore.add(bnode, RDF('value'), 4);        
-        appStore.add(bnode, TERMS('created'), stringToDate("17/09/2019"));  
-
-        appStore.add(bnode1, RDF('type'), BEERCOUNTER('BeerCounterRecord'));
-        appStore.add(bnode1, RDF('value'), 5);        
-        appStore.add(bnode1, TERMS('created'), stringToDate("16/09/2019"));  
-        
-        appStore.add(bnode2, RDF('type'), BEERCOUNTER('BeerCounterRecord'));
-        appStore.add(bnode2, RDF('value'), 16);        
-        appStore.add(bnode2, TERMS('created'), stringToDate("15/09/2019"));  
-
-        appStore.add(bnode3, RDF('type'), BEERCOUNTER('BeerCounterRecord'));
-        appStore.add(bnode3, RDF('value'), 2);
-        appStore.add(bnode3, TERMS('created'), stringToDate("14/09/2019"));  
-
-        // let query = appStore.each(undefined, undefined, BEERCOUNTER('BeerCounterRecord'));
-        // let query2 = appStore.each(query[0], undefined);
-
-        let newAppFile = await $rdf.serialize(undefined, appStore,'text/turtle');
-        return newAppFile;
-    }
 }
+   
+async function findEmptyFile(publicLocation){    
+    let appLocation = publicLocation + 'beercounter'
+  
+    let res = await authClient.fetch(appLocation + '.ttl');
+    if(res.status % 400 < 100){
+      return 'beercounter';
+    }else{
+      return appLocation =  'beercounter' + makeRandomString(10);
+    }
+  }
+  
+  function makeRandomString(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
 
 function dateToString(date){
     var dd = String(date.getDate()).padStart(2, '0');
@@ -232,6 +249,28 @@ function stringToDate(dateString){
     let array = dateString.split('/');
     let date = new Date(Date.UTC(array[2], array[1] - 1, array[0]));    
     return date;
+}
+
+async function postSolidFile(folder, filename , body){
+    authClient.fetch(folder, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/turtle',
+        'Link': '<http://www.w3.org/ns/ldp#Resource>; rel="type"',
+        'SLUG' : filename
+      },
+      body : body
+  });
+}
+  
+async function putSolidFile(url, body){
+authClient.fetch(url, {
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'text/turtle'      
+    },
+    body: body
+});
 }
 
 export default SolidCommuncator;

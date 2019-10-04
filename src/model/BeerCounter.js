@@ -5,7 +5,15 @@ class BeerCounter {
     }
 
     getOrderedDateList(){
-        let arr = Array.from(this.countsPerDate.keys()).sort().reverse();
+        let arr = Array.from(this.countsPerDate.keys()).sort((a,b) =>{
+            let array = a.split('/');
+            let datea = new Date(Date.UTC(array[2], array[1] - 1, array[0]));    
+            
+            let arrayb = b.split('/');
+            let dateb= new Date(Date.UTC(arrayb[2], arrayb[1] - 1, arrayb[0]));   
+
+            return dateb.getTime() - datea.getTime();
+        });
         return arr;
     }
 

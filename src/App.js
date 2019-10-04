@@ -16,7 +16,8 @@ class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      isLoggedIn : false
+      isLoggedIn : false,
+      error: undefined
     }
   }
 
@@ -45,6 +46,11 @@ class App extends React.Component{
             amountOfBeersToday : this.state.beerCounter.getBeerCount(),
             dateToday : this.state.beerCounter.getDateToday()
           });
+        }).catch(err => {
+          console.log(err);
+          this.setState({
+            error : true
+          })
         });
       }else{
         this.setState({
@@ -87,11 +93,17 @@ class App extends React.Component{
     let button;
     let appData;
     let rendering;
+    let error;
 
     if(this.state.isLoggedIn){
       button = <LogOutButton onClick = {this.handleLogOut}></LogOutButton>
 
-      if(this.state.hasFetched){
+      if(this.state.error){
+        error = <p className = "error">
+          The application does not have correct access, Please fix this by giving this application Read, Write and Append access 
+          in your pod
+        </p>
+      }else if(this.state.hasFetched){
         let list = <List beerCounter = {this.state.beerCounter}></List>
         let counter = <Counter onClick = {this.increaseBeers}></Counter>
         let today = <Today date = {this.state.dateToday} beers = {this.state.amountOfBeersToday}></Today>
@@ -110,7 +122,9 @@ class App extends React.Component{
     }else{
       button = <LogInButton onClick = {this.handleLogIn}></LogInButton>
       rendering = (<section id = "rendering">
-                      <h3>Please log in</h3>
+                      <h3>Please log in</h3><br/>
+                      <p>You need a solid pod to log in</p>
+                      <p>You can get one <a href ="https://solid.inrupt.com/get-a-solid-pod">here</a></p>
                   </section>
                   )
     }
@@ -125,13 +139,14 @@ class App extends React.Component{
         </section>
           {rendering}
           {appData}
+          {error}
           <footer>
             <span>
               This application is powered by
             </span>
-              <a href="https://meetflo.zendesk.com/hc/en-us/articles/230425728-Privacy-Policies">
-              <img alt = "Solid inrupt" src={process.env.PUBLIC_URL + '/Knipsel.png'} /> 
-            </a>
+              <a href="https://solid.inrupt.com/">
+                <img alt = "Solid inrupt" src={process.env.PUBLIC_URL + '/Knipsel.png'} /> 
+              </a>
           </footer>
       </div>
     );
