@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Solid-Pod-beer-counter/static/css/main.3e8d9ccd.chunk.css",
-    "main.js": "/Solid-Pod-beer-counter/static/js/main.69a26a85.chunk.js",
-    "main.js.map": "/Solid-Pod-beer-counter/static/js/main.69a26a85.chunk.js.map",
+    "main.js": "/Solid-Pod-beer-counter/static/js/main.c3b210d8.chunk.js",
+    "main.js.map": "/Solid-Pod-beer-counter/static/js/main.c3b210d8.chunk.js.map",
     "runtime~main.js": "/Solid-Pod-beer-counter/static/js/runtime~main.4c39f998.js",
     "runtime~main.js.map": "/Solid-Pod-beer-counter/static/js/runtime~main.4c39f998.js.map",
     "static/js/2.510e7e7c.chunk.js": "/Solid-Pod-beer-counter/static/js/2.510e7e7c.chunk.js",
     "static/js/2.510e7e7c.chunk.js.map": "/Solid-Pod-beer-counter/static/js/2.510e7e7c.chunk.js.map",
     "index.html": "/Solid-Pod-beer-counter/index.html",
-    "precache-manifest.7fca3ab0c290210f6b67a15cd4313eeb.js": "/Solid-Pod-beer-counter/precache-manifest.7fca3ab0c290210f6b67a15cd4313eeb.js",
+    "precache-manifest.92add34149b8f8914e77dd926f98013f.js": "/Solid-Pod-beer-counter/precache-manifest.92add34149b8f8914e77dd926f98013f.js",
     "service-worker.js": "/Solid-Pod-beer-counter/service-worker.js",
     "static/css/main.3e8d9ccd.chunk.css.map": "/Solid-Pod-beer-counter/static/css/main.3e8d9ccd.chunk.css.map"
   }
