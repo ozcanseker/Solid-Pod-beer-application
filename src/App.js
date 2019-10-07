@@ -100,7 +100,7 @@ class App extends React.Component{
 
       if(this.state.error){
         error = <p className = "error">
-          The application does not have correct access, Please fix this by giving this application Read, Write and Append access 
+          Something went wrong: Try refreshing the page or the application does not have correct access, Please fix this by giving this application Read, Write and Append access 
           in your pod
         </p>
       }else if(this.state.hasFetched){

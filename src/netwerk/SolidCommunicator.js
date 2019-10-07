@@ -67,7 +67,6 @@ class SolidCommuncator{
         }
 
         let appStoreTTL = await rdfLib.serialize(undefined, this.appStore, 'text/turtle');
-        console.log(this.applocation);
         await putSolidFile(this.applocation, appStoreTTL);
 
         if(this.queryList.length > 0){
@@ -212,8 +211,16 @@ class SolidCommuncator{
 
         await putSolidFile(publicTypeIndex.value, newTTLpublicTypeindex);
 
+        await sleep(4000);
+
         return appLocation.value;
     }
+}
+
+function sleep(ms){
+    return new Promise(resolve=>{
+        setTimeout(resolve,ms)
+    })
 }
    
 async function findEmptyFile(publicLocation){    
