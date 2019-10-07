@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Solid-Pod-beer-counter/precache-manifest.92add34149b8f8914e77dd926f98013f.js"
+  "/Solid-Pod-beer-counter/precache-manifest.3945b3c40bcf0a8517101f432e1ae894.js"
 );
 
 self.addEventListener('message', (event) => {

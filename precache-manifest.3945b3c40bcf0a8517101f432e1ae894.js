@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "795f8009af74149dc81533ff7d4a5be1",
+    "revision": "28ebfe77704c36287b11051eaab70469",
     "url": "/Solid-Pod-beer-counter/index.html"
   },
   {
-    "revision": "6ece0958711b7bb2876b",
+    "revision": "5f5807792af994bfdddc",
     "url": "/Solid-Pod-beer-counter/static/css/main.3e8d9ccd.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Solid-Pod-beer-counter/static/js/2.510e7e7c.chunk.js"
   },
   {
-    "revision": "6ece0958711b7bb2876b",
-    "url": "/Solid-Pod-beer-counter/static/js/main.c3b210d8.chunk.js"
+    "revision": "5f5807792af994bfdddc",
+    "url": "/Solid-Pod-beer-counter/static/js/main.1acdc725.chunk.js"
   },
   {
     "revision": "5cbad6765f0d75f949a2",
