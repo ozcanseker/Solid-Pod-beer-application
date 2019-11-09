@@ -1,4 +1,5 @@
 import React from 'react';
+import "./css/List.scss";
 
 class ListItem extends React.Component{
     render(){
@@ -7,11 +8,13 @@ class ListItem extends React.Component{
       return (
         <div className = "record">
           <p className = "topRecord">
-            on {this.props.date} you drank
+            {this.props.date}
           </p>
-          <p className = "bottomRecord">        
-            {this.props.value} {beer}
-          </p>
+            <div className= "bottomRecordWrapper">
+                <p className = "bottomRecord">
+                    {this.props.value} {beer}
+                </p>
+            </div>
         </div>
       );
     }

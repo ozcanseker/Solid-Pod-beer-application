@@ -1,279 +1,75 @@
-*   {
-    font-family:"Arial Black", Gadget, sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  font-family: "Arial Black", Gadget, sans-serif;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
-header{
-    margin-bottom: 2%;
+html, body, #root, .App {
+  height: 100%;
 }
 
-h1 {
-    text-align: center;
-    background: darkblue;
-    color : white;
-    margin : 0;
-    padding : 2%;
-    font-size : 3em;
-}
-
-#authDiv {
-    overflow: hidden;
-    width: 100;
-    padding: 0% 1% 0% 1%;
-  }
-
-.authButton {
-    float: right;
-    padding: 1%;
-    font-size: 1em;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #1446A0;
-    border: none;
-    box-shadow: 0 3px #999;
-  }
-
-.authButton:hover {
-    background-color: #043690;
-}
-
-.authButton:active {
-    background-color: #043690;
-    box-shadow: 0 0px #666;
-    transform: translateY(4px);
-}
-
-#rendering {
-    text-align: center;
-    font-size: 2em;
-}
-
-#rendering > p {
-  font-size: 0.75em;
-}
-
-#fetchinAnimation {
-  width: 50px;
-  height: 50px;
-  position: relative;
-  -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
-  -webkit-animation-iteration-count: infinite; /* Safari 4.0 - 8.0 */
-  animation-name: example;
-  animation-duration: 3s;
-  animation-iteration-count: infinite;
-}
-
-.error {
-  color : red;
-  font-size : 1.5em;
-  margin: 5%;
-}
-
-.today {
-  color : darkblue;
-  font-size : 1.5em;
+.App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
 
-.todayBeer {
-  color: orange;
-  font-size: 1.5em;
+.appNotLoggedIn {
+  background: {
+    image: linear-gradient(to top,  orange 0%, white 80%);
+  }
 }
 
-.listContainer{
-  margin: 0% 5% 0% 5%;
-  max-height: 250px;
+.appLoggedIn {
+  background: rgba(76, 175, 80, 0);
+}
+
+header {
+  background: white;
+  flex: 2;
+  margin-bottom: 1%;
+}
+
+header > h1 {
+  font-size: 3em;
+  margin: 0;
+  padding: 2%;
+}
+
+.appSection {
+  flex: 13;
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
 }
 
-
-.listContainer::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+.loaderDiv{
+  margin-top: 4%;
+  display: inline-block;
+  left: 50%;
 }
 
-.listContainer::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: #F5F5F5;
+.loggedInSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
-.listContainer::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
-}
-
-
-.record {
-  border: 1px black solid;
-  margin-bottom: 2%; 
-  text-align: center;
-  padding : 0;
-}
-
-.topRecord {
-  background : darkblue;
-  color: white;
-}
-
-.bottomRecord {
-  color: orange;
+.listContainer {
+  flex: 1;
 }
 
 footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  font-size : 0.8em;
-  padding: 1rem;
+  font-size: .8em;
+  padding: 0.5rem;
   background-color: #efefef;
   text-align: center;
 }
 
-footer img{
-  margin-left: 1%;
-  height : 1.6em;
+footer img {
+  margin-left: 0.5%;
+  height: 1.6em;
   vertical-align: middle;
 }
 
-/**Animation stuff
- **
- **/
-
-@-webkit-keyframes example {
-    0%   {background-color:blue; left:40%; top:20px;}
-    25%  {background-color:lightblue; left:60%; top:20px;}
-    50%  {background-color:blue; left:60%; top:120px;}
-    75%  {background-color:darkblue; left:40%; top:120px;}
-    100% {background-color:blue; left:40%; top:20px;}
-  }
-  
-  /* Standard syntax */
-  @keyframes example {
-    0%   {background-color:blue; left:40%; top:20px;}
-    25%  {background-color:lightblue; left:60%; top:20px;}
-    50%  {background-color:blue; left:60%; top:120px;}
-    75%  {background-color:darkblue; left:40%; top:120px;}
-    100% {background-color:blue; left:40%; top:20px;}
-  }
-
-$fuschia: rgb(231, 108, 6);
-$button-bg: $fuschia;
-$button-text-color: #fff;
-$baby-blue: #f8faff;
-
-.bubbly-button{
-  display: inline-block;
-  font-size: 1em;
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: $button-bg;
-  color: $button-text-color;
-  border: none;
-  cursor: pointer;
-  position: relative;
-  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
-  box-shadow: 0 2px 25px rgb(190, 88, 5);
-  width : 70%;
-  padding: 2% 0% 2% 0%;
-  margin : 3% 15% 5% 15%;
-  
-  &:focus {
-    outline: 0;
-  }
-  
-  &:before, &:after{
-    position: absolute;
-    content: '';
-    display: block;
-    width: 140%;
-    height: 100%;
-    left: -20%;
-    z-index: -1000;
-    transition: all ease-in-out 0.5s;
-    background-repeat: no-repeat;
-  }
-  
-  &:before{
-    display: none;
-    top: -75%;
-    background-image:  
-      radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle,  transparent 20%, $button-bg 20%, transparent 30%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%), 
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%);
-    background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
-  //background-position: 0% 80%, -5% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 85% 30%;
-  }
-  
-  &:after{
-    display: none;
-    bottom: -75%;
-    background-image:  
-    radial-gradient(circle, $button-bg 20%, transparent 20%), 
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle,  transparent 10%, $button-bg 15%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%),
-    radial-gradient(circle, $button-bg 20%, transparent 20%);
-  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
-  //background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
-  }
- 
-  &:active{
-    transform: scale(0.9);
-    background-color: darken($button-bg, 5%);
-    box-shadow: 0 2px 25px rgba(175, 44, 4, 0.2);
-  }
-  
-  &.animate{
-    &:before{
-      display: block;
-      animation: topBubbles ease-in-out 0.75s forwards;
-    }
-    &:after{
-      display: block;
-      animation: bottomBubbles ease-in-out 0.75s forwards;
-    }
-  }
-}
-
-
-@keyframes topBubbles {
-  0%{
-    background-position: 5% 90%, 10% 90%, 10% 90%, 15% 90%, 25% 90%, 25% 90%, 40% 90%, 55% 90%, 70% 90%;
-  }
-    50% {
-      background-position: 0% 80%, 0% 20%, 10% 40%, 20% 0%, 30% 30%, 22% 50%, 50% 50%, 65% 20%, 90% 30%;}
- 100% {
-    background-position: 0% 70%, 0% 10%, 10% 30%, 20% -10%, 30% 20%, 22% 40%, 50% 40%, 65% 10%, 90% 20%;
-  background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
-  }
-}
-
-@keyframes bottomBubbles {
-  0%{
-    background-position: 10% -10%, 30% 10%, 55% -10%, 70% -10%, 85% -10%, 70% -10%, 70% 0%;
-  }
-  50% {
-    background-position: 0% 80%, 20% 80%, 45% 60%, 60% 100%, 75% 70%, 95% 60%, 105% 0%;}
- 100% {
-    background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
-  background-size: 0% 0%, 0% 0%,  0% 0%,  0% 0%,  0% 0%,  0% 0%;
-  }
-}
-  

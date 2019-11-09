@@ -4,12 +4,14 @@
   "private": true,
   "homepage": "https://ozcanseker.github.io/Solid-Pod-beer-counter/",
   "dependencies": {
+    "@material-ui/core": "^4.6.0",
     "node-sass": "^4.12.0",
     "rdflib": "^1.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-spinners": "^0.6.1",
     "solid-auth-client": "^2.3.1",
     "solid-file-client": "^0.5.2"
   },

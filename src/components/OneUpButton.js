@@ -1,22 +1,27 @@
 import React from 'react';
+import "./css/OneUpButton.scss";
 
-class Counter extends React.Component{
-    constructor(props){
+
+class OneUpButton extends React.Component {
+    constructor(props) {
         super(props);
-        this.state = {
-            className : ""
-        }
     }
 
-    animateButton = (e) => {
-        this.props.onClick();
-      };
-
-    render(){
+    render() {
         return (
-            <button className={"bubbly-button " + this.state.className} onClick = {this.animateButton}>One up the BEER</button>
+            <div className="oneUpButtonContainer">
+                <div className="containerCircleBorder" onClick={this.props.onClick}>
+                    <div className="oneUpButtonCircle">
+                        <div className="circleBorder">
+                            <div className="innerCircle">
+                                <div className="oneUpButton"><p>One up the BEER</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         );
     }
 }
 
-export default Counter;
+export default OneUpButton;

@@ -1,4 +1,5 @@
 import React from 'react';
+import "./css/Today.scss";
 
 class Today extends React.Component{
   render(){
@@ -6,8 +7,8 @@ class Today extends React.Component{
 
     return (
       <div className = "today">
-        <p>Today You Drank</p>
-        <p className = "amount"><span className = "todayBeer">{this.props.beers} {beer}</span></p>
+              <p>Today You Drank</p>
+              <p className = "amount"><span className = "todayBeer">{this.props.beers} {beer}</span></p>
       </div>
     );
   }
