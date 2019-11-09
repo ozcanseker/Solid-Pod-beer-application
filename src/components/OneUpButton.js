@@ -9,19 +9,6 @@ class Counter extends React.Component{
     }
 
     animateButton = (e) => {
-        e.preventDefault();
-        
-        
-        this.setState({
-            className : "animate"
-        })
-        
-        setTimeout(() => {
-            this.setState({
-                className : ""
-            })
-        },700);
-
         this.props.onClick();
       };
 
