@@ -10,13 +10,9 @@ class OneUpButton extends React.Component {
     render() {
         return (
             <div className="oneUpButtonContainer">
-                <div className="containerCircleBorder" onClick={this.props.onClick}>
-                    <div className="oneUpButtonCircle">
-                        <div className="circleBorder">
-                            <div className="innerCircle">
-                                <div className="oneUpButton"><p>One up the BEER</p></div>
-                            </div>
-                        </div>
+                <div className="circleBorder" onClick={this.props.onClick}>
+                    <div className="innerCircle">
+                        <div className="oneUpButton"><p>One up the BEER</p></div>
                     </div>
                 </div>
             </div>
