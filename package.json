@@ -5,7 +5,7 @@
   "homepage": "https://ozcanseker.github.io/Solid-Pod-beer-counter/",
   "dependencies": {
     "@material-ui/core": "^4.6.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "rdflib": "^1.0.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
